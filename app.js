@@ -10,9 +10,7 @@
   var dateInput = document.getElementById("date");
   var errorBox = document.getElementById("form-error");
 
-  var rupees = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
   var liters = new Intl.NumberFormat("en-IN");
-  var pct = Math.round(cfg.extraTankDiscount * 100) + "%";
 
   function waUrl(text) {
     var url = "https://wa.me/" + cfg.whatsappNumber;
@@ -32,7 +30,6 @@
   document.querySelectorAll("[data-phone-link]").forEach(function (el) { el.href = "tel:" + cfg.phoneLink; });
   document.querySelectorAll("[data-email]").forEach(function (el) { el.textContent = cfg.email; });
   document.querySelectorAll("[data-email-link]").forEach(function (el) { el.href = "mailto:" + cfg.email; });
-  document.querySelectorAll("[data-discount]").forEach(function (el) { el.textContent = pct; });
   document.querySelectorAll("[data-wa-link]").forEach(function (el) {
     el.href = waUrl(el.getAttribute("data-wa-text") || "Hi " + cfg.brand + ", I want to get my water tank cleaned. Sector/society: ");
   });
@@ -41,110 +38,46 @@
   }
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Price table, rebuilt from the config so prices are edited in one place.
-  (function renderPriceTable() {
-    var roof = cfg.pricing.rooftop.slabs;
-    var under = cfg.pricing.underground.slabs;
-    var bounds = roof.concat(under).map(function (s) { return s.upTo; })
-      .filter(function (v, i, a) { return a.indexOf(v) === i; })
-      .sort(function (a, b) { return a - b; });
-    function priceFor(slabs, cap) {
-      for (var i = 0; i < slabs.length; i++) if (cap <= slabs[i].upTo) return rupees.format(slabs[i].price);
-      return "Quote";
-    }
-    var rows = "";
-    var prev = 0;
-    bounds.forEach(function (b) {
-      rows += "<tr><th scope=\"row\">" + rangeLabel(prev, b) + "</th>" +
-        "<td data-label=\"Rooftop\">" + priceFor(roof, b) + "</td>" +
-        "<td data-label=\"Underground\">" + priceFor(under, b) + "</td></tr>";
-      prev = b;
-    });
-    rows += "<tr><th scope=\"row\">Above " + liters.format(prev) + " L</th><td colspan=\"2\" data-label=\"Price\">Quote on WhatsApp</td></tr>";
-    document.getElementById("price-rows").innerHTML = rows;
-  })();
-
-  function fillCapacity(sel, slabs) {
+  function fillCapacity(sel, sizes) {
     var prev = sel.value;
     sel.innerHTML = "";
-    slabs.forEach(function (s, i) {
-      sel.add(new Option(rangeLabel(i === 0 ? 0 : slabs[i - 1].upTo, s.upTo), String(i)));
+    sizes.forEach(function (size, i) {
+      sel.add(new Option(rangeLabel(i === 0 ? 0 : sizes[i - 1], size), String(i)));
     });
-    sel.add(new Option("Above " + liters.format(slabs[slabs.length - 1].upTo) + " L (get a quote)", "quote"));
+    sel.add(new Option("Above " + liters.format(sizes[sizes.length - 1]) + " L", "large"));
+    sel.add(new Option("Not sure", "unsure"));
     if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
   function syncTypeFields() {
     var type = selectedType();
     var both = type === "both";
-    fillCapacity(capacitySel, cfg.pricing[both ? "rooftop" : type].slabs);
-    if (both) fillCapacity(capacity2Sel, cfg.pricing.underground.slabs);
+    fillCapacity(capacitySel, cfg.tanks[both ? "rooftop" : type].sizes);
+    if (both) fillCapacity(capacity2Sel, cfg.tanks.underground.sizes);
     form.querySelector("[data-cap-label]").textContent = both ? "Rooftop tank capacity" : "Tank capacity";
     form.querySelector("[data-cap2-wrap]").hidden = !both;
     form.querySelector("[data-count-wrap]").hidden = both;
   }
 
   function selText(sel) {
-    return sel.options[sel.selectedIndex].text.replace(" (get a quote)", "");
+    return sel.options[sel.selectedIndex].text;
   }
 
-  // Returns the line items for the current selection. Extra tanks (beyond the
-  // most expensive one) get the configured discount.
-  function quote() {
+  // A plain-language summary of the selected tanks, used on the page and in
+  // the WhatsApp message.
+  function describe() {
     var type = selectedType();
-    var items = [];
     if (type === "both") {
-      items.push({ kind: "rooftop", cap: selText(capacitySel), idx: capacitySel.value });
-      items.push({ kind: "underground", cap: selText(capacity2Sel), idx: capacity2Sel.value });
-    } else {
-      var n = parseInt(countSel.value, 10) || 1;
-      for (var i = 0; i < n; i++) items.push({ kind: type, cap: selText(capacitySel), idx: capacitySel.value });
+      return "Rooftop tank (" + selText(capacitySel) + ") + underground sump (" + selText(capacity2Sel) + ")";
     }
-    var needsQuote = items.some(function (it) { return it.idx === "quote"; });
-    var q = { type: type, items: items, quote: needsQuote };
-    if (needsQuote) return q;
-    var prices = items.map(function (it) { return cfg.pricing[it.kind].slabs[parseInt(it.idx, 10)].price; })
-      .sort(function (a, b) { return b - a; });
-    q.base = prices[0];
-    q.extra = prices.slice(1).reduce(function (sum, p) { return sum + Math.round(p * (1 - cfg.extraTankDiscount)); }, 0);
-    q.gst = Math.round((q.base + q.extra) * cfg.gstRate);
-    q.total = q.base + q.extra + q.gst;
-    return q;
+    var n = parseInt(countSel.value, 10) || 1;
+    var label = cfg.tanks[type].label.toLowerCase() + (n > 1 ? "s" : "");
+    return n + " × " + label + ", " + selText(capacitySel).replace(/^Up to/, "up to").replace(/^Not sure$/, "size not sure");
   }
 
-  function describe(q) {
-    if (q.type === "both") return "Rooftop tank (" + q.items[0].cap + ") + underground sump (" + q.items[1].cap + ")";
-    return q.items.length + " × " + cfg.pricing[q.type].label.toLowerCase() + ", " + q.items[0].cap;
-  }
-
-  function setQ(key, text) {
-    var el = document.querySelector('[data-q="' + key + '"]');
-    if (el) el.textContent = text;
-  }
-
-  function renderQuote() {
-    var q = quote();
-    var extraRow = document.querySelector("[data-q-extra-row]");
-    var inline = document.querySelector("[data-q-inline]");
-    if (q.quote) {
-      setQ("base", "On request");
-      setQ("gst", "–");
-      setQ("total", "On WhatsApp");
-      inline.textContent = "Quote on WhatsApp";
-      extraRow.hidden = true;
-      setQ("note", "Tanks above 10,000 L are priced after a quick look. Send the booking and we'll quote on WhatsApp.");
-      return;
-    }
-    var extras = q.items.length - 1;
-    setQ("baseLabel", extras ? "First tank" : "Cleaning charge");
-    setQ("base", rupees.format(q.base));
-    extraRow.hidden = extras < 1;
-    setQ("extraLabel", (extras === 1 ? "Second tank" : extras + " more tanks") + " (" + pct + " off)");
-    setQ("extra", rupees.format(q.extra));
-    setQ("gst", rupees.format(q.gst));
-    setQ("total", rupees.format(q.total));
-    inline.textContent = rupees.format(q.total) + " incl. GST";
-    setQ("note", describe(q) + ".");
+  function renderSummary() {
+    var el = document.querySelector('[data-q="summary"]');
+    if (el) el.textContent = describe();
   }
 
   // Time slots and earliest date (tomorrow, local time).
@@ -165,7 +98,7 @@
 
   form.addEventListener("change", function (e) {
     if (e.target.name === "type") syncTypeFields();
-    renderQuote();
+    renderSummary();
   });
 
   form.addEventListener("submit", function (e) {
@@ -182,12 +115,11 @@
     }
     errorBox.hidden = true;
 
-    var q = quote();
+    var type = selectedType();
     var lines = [
-      "Hi " + cfg.brand + ", I'd like to book a tank cleaning.",
+      "Hi " + cfg.brand + ", please send me a quote for tank cleaning.",
       "",
-      "Tank: " + describe(q),
-      q.quote ? "Price: please quote" : "Price: " + rupees.format(q.base + q.extra) + " + GST " + rupees.format(q.gst) + " = " + rupees.format(q.total),
+      "Tank: " + describe(),
       "Name: " + String(data.get("name")).trim(),
       "Address: " + String(data.get("address")).trim(),
       "Preferred slot: " + friendlyDate(data.get("date")) + ", " + data.get("slot")
@@ -196,8 +128,8 @@
     if (notes) lines.push("Notes: " + notes);
     if (cfg.offerText) lines.push("Offer: " + cfg.offerText);
 
-    if (typeof window.gtag === "function") window.gtag("event", "whatsapp_booking", { service: q.type, value: q.total || 0, currency: "INR" });
-    if (typeof window.va === "function") window.va("event", { name: "whatsapp_booking", data: { service: q.type } });
+    if (typeof window.gtag === "function") window.gtag("event", "whatsapp_quote_request", { service: type });
+    if (typeof window.va === "function") window.va("event", { name: "whatsapp_quote_request", data: { service: type } });
 
     window.open(waUrl(lines.join("\n")), "_blank", "noopener");
   });
@@ -271,5 +203,5 @@
   if (typeInput) typeInput.checked = true;
 
   syncTypeFields();
-  renderQuote();
+  renderSummary();
 })();

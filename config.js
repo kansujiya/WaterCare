@@ -10,33 +10,12 @@ window.SITE_CONFIG = {
   phoneLink: "+919999999999", // PLACEHOLDER
   email: "hello@tanksaaf.in", // PLACEHOLDER
 
-  gstRate: 0.18,
-  // Each extra tank of the same type at the same address gets this discount.
-  extraTankDiscount: 0.15,
-
-  // Price slabs in rupees, excluding GST. upTo is the tank capacity in liters.
-  // Tanks larger than the last slab are quoted on WhatsApp.
-  pricing: {
-    rooftop: {
-      label: "Rooftop tank",
-      slabs: [
-        { upTo: 1000, price: 2099 },
-        { upTo: 2000, price: 2499 },
-        { upTo: 3000, price: 2899 },
-        { upTo: 5000, price: 3499 },
-        { upTo: 8000, price: 4299 },
-        { upTo: 10000, price: 4999 }
-      ]
-    },
-    underground: {
-      label: "Underground sump",
-      slabs: [
-        { upTo: 3000, price: 2999 },
-        { upTo: 5000, price: 3799 },
-        { upTo: 8000, price: 4699 },
-        { upTo: 10000, price: 5499 }
-      ]
-    }
+  // Tank sizes offered in the booking form, in liters. Prices are not shown on
+  // the site; quotes are sent manually on WhatsApp. Sizes above the last value
+  // appear as "Above ... L".
+  tanks: {
+    rooftop: { label: "Rooftop tank", sizes: [1000, 2000, 3000, 5000, 8000, 10000] },
+    underground: { label: "Underground sump", sizes: [3000, 5000, 8000, 10000] }
   },
 
   timeSlots: [
@@ -49,7 +28,7 @@ window.SITE_CONFIG = {
 
   // Optional launch offer line shown in the hero and booking summary, e.g.
   // "Launch offer: Rs 300 off your first clean". Leave empty to hide.
-  // Only set an offer you will honour; it is not applied to the calculated price.
+  // Only set an offer you will honour.
   offerText: "",
 
   // Photos for the "Tanks we clean" gallery. Put the files in /images and list
