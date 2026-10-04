@@ -225,6 +225,32 @@
     document.querySelector("[data-video-nav]").hidden = false;
   }
 
+  // Photo gallery, built from the config and hidden while it is empty.
+  if (cfg.photos && cfg.photos.length) {
+    var gallery = document.getElementById("gallery");
+    cfg.photos.forEach(function (ph) {
+      var fig = document.createElement("figure");
+      var img = document.createElement("img");
+      img.src = ph.src;
+      img.alt = ph.alt || "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      fig.appendChild(img);
+      if (ph.caption || ph.credit) {
+        var cap = document.createElement("figcaption");
+        cap.textContent = ph.caption || "";
+        if (ph.credit) {
+          var cr = document.createElement("small");
+          cr.textContent = ph.credit;
+          cap.appendChild(cr);
+        }
+        fig.appendChild(cap);
+      }
+      gallery.appendChild(fig);
+    });
+    document.getElementById("photos").hidden = false;
+  }
+
   // Header shadow once the page scrolls.
   var topbar = document.getElementById("topbar");
   function onScroll() { topbar.classList.toggle("is-scrolled", window.scrollY > 8); }

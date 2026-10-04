@@ -21,7 +21,8 @@ Search the repo for `PLACEHOLDER`, `9999`, `tanksaaf.in` and `Address to be adde
 2. **`index.html`**: add `telephone`, `email` and the full street address to the JSON-LD block in `<head>` (left out until real), check opening hours, the canonical and `og:` URLs, and the footer address and hours.
 3. **`robots.txt`, `sitemap.xml`**: the domain.
 4. **Prices**: edit the slabs in `config.js`. The calculator and price table update from it. Also update the static fallback rows in `index.html` and the two `Offer` prices in the JSON-LD so search engines see the same numbers.
-5. **Hero illustration**: swap for a real crew photo when you have one (see the `PHOTO SLOT` comment).
+5. **Photos**: put your images in `images/` (JPG or WebP, about 1200px wide, under 200 KB each) and list them in `photos` in `config.js`. The "Tanks we clean" section appears once the list has entries. Real before and after shots of your own jobs work best; if you use stock photos (Unsplash, Pexels), add the photographer credit and don't caption them as your work.
+6. **Hero illustration**: swap for a real crew photo when you have one (see the `PHOTO SLOT` comment).
 
 If you pick a different brand name, change `brand` in `config.js` and the name in `index.html` (title, meta tags, JSON-LD).
 
