@@ -265,6 +265,11 @@
     }, { threshold: 0.15 }).observe(document.getElementById("book"));
   }
 
+  // Preselect the tank type when linked from a service page (/?type=underground#book).
+  var typeParam = new URLSearchParams(window.location.search).get("type");
+  var typeInput = typeParam && form.querySelector('input[name="type"][value="' + typeParam.replace(/[^a-z]/g, "") + '"]');
+  if (typeInput) typeInput.checked = true;
+
   syncTypeFields();
   renderQuote();
 })();

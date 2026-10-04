@@ -10,6 +10,8 @@ Single page website for a no-entry water tank cleaning service in Gurugram. Cust
 | `config.js` | Brand, contact details, price slabs, GST, time slots, optional launch offer, demo video IDs |
 | `app.js` | Price calculator, booking form, WhatsApp link, lazy video embeds |
 | `styles.css` | Styles, mobile first |
+| `*-gurugram.html` | Service pages: overhead tanks, underground sumps, societies, price list. Generated, don't edit by hand |
+| `scripts/build-pages.mjs` | Builds the service pages and `sitemap.xml` from `config.js` |
 | `robots.txt`, `sitemap.xml` | For search engines |
 | `og-image.jpg` | Preview image when the link is shared on WhatsApp or social media (source: `og-image.svg`) |
 
@@ -23,6 +25,8 @@ Search the repo for `PLACEHOLDER`, `9999`, `tanksaaf.in` and `Address to be adde
 4. **Prices**: edit the slabs in `config.js`. The calculator and price table update from it. Also update the static fallback rows in `index.html` and the two `Offer` prices in the JSON-LD so search engines see the same numbers.
 5. **Photos**: put your images in `images/` (JPG or WebP, about 1200px wide, under 200 KB each) and list them in `photos` in `config.js`. The "Tanks we clean" section appears once the list has entries. Real before and after shots of your own jobs work best; if you use stock photos (Unsplash, Pexels), add the photographer credit and don't caption them as your work.
 6. **Hero illustration**: swap for a real crew photo when you have one (see the `PHOTO SLOT` comment).
+
+After any change to `config.js` (prices, phone, WhatsApp, email), run `node scripts/build-pages.mjs` so the service pages and sitemap pick it up, then commit the result. The domain for those pages is the `SITE` constant at the top of that script.
 
 If you pick a different brand name, change `brand` in `config.js` and the name in `index.html` (title, meta tags, JSON-LD).
 
