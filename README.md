@@ -7,7 +7,7 @@ Single page website for a no-entry water tank cleaning service in Gurugram. Cust
 | File | What it is |
 | --- | --- |
 | `index.html` | The page, SEO meta tags and structured data (LocalBusiness, Service, FAQPage) |
-| `config.js` | Brand, contact details, price slabs, GST, time slots, demo video IDs |
+| `config.js` | Brand, contact details, price slabs, GST, time slots, optional launch offer, demo video IDs |
 | `app.js` | Price calculator, booking form, WhatsApp link, lazy video embeds |
 | `styles.css` | Styles, mobile first |
 | `robots.txt`, `sitemap.xml` | For search engines |
@@ -17,10 +17,11 @@ Single page website for a no-entry water tank cleaning service in Gurugram. Cust
 
 Search the repo for `PLACEHOLDER`, `9999`, `tanksaaf.in` and `Address to be added`, and replace:
 
-1. **`config.js`**: `whatsappNumber` (digits only, e.g. `919812345678`), `phoneDisplay`, `phoneLink`, `email`, and the two YouTube video IDs.
-2. **`index.html`**: the JSON-LD block in `<head>` (telephone, email, address, postal code, opening hours), the canonical and `og:` URLs, and the footer address and hours.
+1. **`config.js`**: `whatsappNumber` (digits only, e.g. `919812345678`), `phoneDisplay`, `phoneLink`, `email`, and the two YouTube video IDs. The demo video section stays hidden until a video ID is set. `offerText` shows a launch offer line; only set one you will honour.
+2. **`index.html`**: add `telephone`, `email` and the full street address to the JSON-LD block in `<head>` (left out until real), check opening hours, the canonical and `og:` URLs, and the footer address and hours.
 3. **`robots.txt`, `sitemap.xml`**: the domain.
-4. **Prices**: edit the slabs in `config.js`. The calculator and price table update from it. Also update the static fallback rows in `index.html` and the `Offer` prices in the JSON-LD so search engines see the same numbers.
+4. **Prices**: edit the slabs in `config.js`. The calculator and price table update from it. Also update the static fallback rows in `index.html` and the two `Offer` prices in the JSON-LD so search engines see the same numbers.
+5. **Hero illustration**: swap for a real crew photo when you have one (see the `PHOTO SLOT` comment).
 
 If you pick a different brand name, change `brand` in `config.js` and the name in `index.html` (title, meta tags, JSON-LD).
 

@@ -47,8 +47,13 @@ window.SITE_CONFIG = {
     "4 PM to 6 PM"
   ],
 
-  // YouTube video IDs (the part after v= in the URL). Leave empty to show a
-  // "coming soon" card instead of a video.
+  // Optional launch offer line shown in the hero and booking summary, e.g.
+  // "Launch offer: Rs 300 off your first clean". Leave empty to hide.
+  // Only set an offer you will honour; it is not applied to the calculated price.
+  offerText: "",
+
+  // YouTube video IDs (the part after v= in the URL). The demo section stays
+  // hidden until at least one is set.
   videos: {
     rooftop: "", // PLACEHOLDER
     underground: "" // PLACEHOLDER
