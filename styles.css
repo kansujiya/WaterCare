@@ -9,8 +9,8 @@
   --muted: #4f6272;
   --line: #dce7ee;
   --field: #c3d3dd;
-  --wa: #128c4a;
-  --wa-dark: #0e6f3a;
+  --wa: #0f7a40;
+  --wa-dark: #0b5f32;
   --accent: #f2b630;
   --radius: 16px;
   --shadow: 0 10px 30px rgba(10, 50, 80, 0.08);
@@ -58,7 +58,7 @@ a { color: var(--blue); }
 .btn-ghost { background: #fff; color: var(--blue); border-color: #b9d7e8; }
 .btn-ghost:hover { background: var(--aqua); border-color: var(--blue); color: var(--blue-dark); }
 .btn-wa { background: var(--wa); border-color: var(--wa); }
-.btn-wa:hover { background: var(--wa-dark); border-color: var(--wa-dark); box-shadow: 0 6px 16px rgba(18, 140, 74, .28); }
+.btn-wa:hover { background: var(--wa-dark); border-color: var(--wa-dark); box-shadow: 0 6px 16px rgba(15, 122, 64, .28); }
 .btn-light { background: #fff; color: var(--navy); border-color: #fff; }
 .btn-light:hover { background: var(--sky); border-color: var(--sky); color: var(--navy); }
 

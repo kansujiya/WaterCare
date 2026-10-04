@@ -11,7 +11,7 @@ Single page website for a no-entry water tank cleaning service in Gurugram. Cust
 | `app.js` | Price calculator, booking form, WhatsApp link, lazy video embeds |
 | `styles.css` | Styles, mobile first |
 | `robots.txt`, `sitemap.xml` | For search engines |
-| `og-image.png` | Preview image when the link is shared on WhatsApp or social media (source: `og-image.svg`) |
+| `og-image.jpg` | Preview image when the link is shared on WhatsApp or social media (source: `og-image.svg`) |
 
 ## Before launch
 
