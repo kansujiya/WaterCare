@@ -185,7 +185,7 @@ const header = `
   <header class="topbar is-scrolled">
     <div class="wrap topbar-inner">
       <a class="logo" href="/" aria-label="${cfg.brand} home">
-        <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0e7490"/><path d="M16 6c4 5.6 7 9.2 7 12.8a7 7 0 0 1-14 0C9 15.2 12 11.6 16 6z" fill="#fff"/><path d="M13 19.5a3 3 0 0 0 3 3" stroke="#0e7490" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0b5d75"/><path d="M16 6c4 5.6 7 9.2 7 12.8a7 7 0 0 1-14 0C9 15.2 12 11.6 16 6z" fill="#fff"/><path d="M13 19.5a3 3 0 0 0 3 3" stroke="#0b5d75" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
         <span class="wordmark"><span>Tank</span><span>Saaf</span></span>
       </a>
       <nav class="nav" aria-label="Main">
@@ -272,7 +272,7 @@ function render(p) {
   <title>${esc(p.title)}</title>
   <meta name="description" content="${esc(p.description)}">
   <link rel="canonical" href="${url}">
-  <meta name="theme-color" content="#083344">
+  <meta name="theme-color" content="#04293a">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta property="og:type" content="website">
