@@ -272,7 +272,7 @@ function render(p) {
   <title>${esc(p.title)}</title>
   <meta name="description" content="${esc(p.description)}">
   <link rel="canonical" href="${url}">
-  <meta name="theme-color" content="#04293a">
+  <meta name="theme-color" content="#043a50">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta property="og:type" content="website">
