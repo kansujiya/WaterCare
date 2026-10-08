@@ -290,10 +290,19 @@ function render(p) {
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body class="subpage">
+  <div class="sea-bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 ${header}
 
   <main>
     <section class="page-hero">
+      <div class="water" aria-hidden="true">
+        <div class="rays"></div>
+        <svg class="wave wave-1" viewBox="0 0 2880 160" preserveAspectRatio="none"><path d="M0 60 Q360 10 720 60 T1440 60 T2160 60 T2880 60 V160 H0 Z"/></svg>
+        <svg class="wave wave-2" viewBox="0 0 2880 160" preserveAspectRatio="none"><path d="M0 78 Q360 34 720 78 T1440 78 T2160 78 T2880 78 V160 H0 Z"/></svg>
+        <svg class="wave wave-3" viewBox="0 0 2880 160" preserveAspectRatio="none"><path d="M0 96 Q360 56 720 96 T1440 96 T2160 96 T2880 96 V160 H0 Z"/><path class="crest" d="M0 96 Q360 56 720 96 T1440 96 T2160 96 T2880 96"/></svg>
+        <svg class="wave wave-4" viewBox="0 0 2880 160" preserveAspectRatio="none"><path d="M0 114 Q360 80 720 114 T1440 114 T2160 114 T2880 114 V160 H0 Z"/></svg>
+        <svg class="wave wave-5" viewBox="0 0 2880 160" preserveAspectRatio="none"><path d="M0 132 Q360 106 720 132 T1440 132 T2160 132 T2880 132 V160 H0 Z"/></svg>
+      </div>
       <div class="wrap">
         <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">/</span> <span>${p.crumb}</span></nav>
         <p class="eyebrow">${p.eyebrow}</p>
