@@ -7,7 +7,7 @@
   --aqua: rgba(34, 211, 238, .14);
   --surface: rgba(255, 255, 255, .05);
   --ink: #e2f5f9;
-  --muted: #a6cfd9;
+  --muted: #cfeaf1;
   --line: rgba(186, 240, 250, .16);
   --field: rgba(186, 240, 250, .32);
   --glass: rgba(255, 255, 255, .065);
@@ -95,11 +95,9 @@ a { color: var(--blue); }
 .hero .trust svg { color: #67e8f9; }
 .hero-inner { position: relative; z-index: 1; }
 
-/* Live water: drifting caustic light, sun rays, rising bubbles and waves.
+/* Live water: sun rays, rising bubbles and waves.
    Transform and opacity only, and all of it stops for reduced motion. */
 .water { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.caustics { position: absolute; inset: -40%; opacity: .22; mix-blend-mode: screen; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25' filterUnits='userSpaceOnUse'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.011' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 -9 0 0 0 1.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); background-size: 480px 480px; animation: drift 28s linear infinite; will-change: transform; mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%); -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%); }
-.caustics-2 { opacity: .14; background-size: 620px 620px; animation: drift2 36s linear infinite; }
 .rays { position: absolute; top: -20%; left: 20%; width: 70%; height: 120%; background: repeating-linear-gradient(100deg, rgba(255, 255, 255, 0) 0 60px, rgba(165, 243, 252, .16) 60px 90px, rgba(255, 255, 255, 0) 90px 170px); transform-origin: 50% 0; mask-image: linear-gradient(180deg, #000, transparent 75%); -webkit-mask-image: linear-gradient(180deg, #000, transparent 75%); animation: sway 9s ease-in-out infinite alternate; }
 .bubbles i { position: absolute; bottom: -24px; width: 10px; height: 10px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff 0 18%, rgba(255, 255, 255, .25) 40%, rgba(11, 93, 117, .08) 70%); border: 1px solid rgba(255, 255, 255, .8); animation: rise 11s linear infinite; opacity: 0; }
 .bubbles i:nth-child(1) { left: 6%; animation-delay: 0s; }
@@ -116,8 +114,6 @@ a { color: var(--blue); }
 .wave-back { fill: rgba(34, 211, 238, .22); animation-duration: 26s; animation-direction: reverse; }
 .wave-mid { fill: rgba(255, 255, 255, .35); animation-duration: 20s; }
 .wave-front { fill: #fff; animation-duration: 14s; }
-@keyframes drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-480px, -480px, 0); } }
-@keyframes drift2 { from { transform: translate3d(-620px, 0, 0); } to { transform: translate3d(0, -620px, 0); } }
 @keyframes sway { from { transform: rotate(-4deg); opacity: .55; } to { transform: rotate(4deg); opacity: 1; } }
 @keyframes rise { 0% { transform: translate3d(0, 0, 0); opacity: 0; } 10% { opacity: .9; } 50% { transform: translate3d(12px, -45vh, 0); } 90% { opacity: .7; } 100% { transform: translate3d(-8px, -90vh, 0); opacity: 0; } }
 @keyframes flow { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
@@ -418,13 +414,12 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
 .quote-steps strong { color: var(--navy); }
 .quote-steps span { color: var(--muted); font-size: .95rem; }
 
-/* Live water theme: the whole page sits under water. A fixed deep-water
-   gradient and a slowly drifting caustic layer stay behind every section,
-   and cards are glass panes floating in it. */
+/* Live water theme: the whole page sits in clear water. A fixed aqua
+   gradient and soft swaying light rays stay behind every section, and cards
+   are glass panes floating in it. */
 body { position: relative; isolation: isolate; }
-body::before { content: ""; position: fixed; inset: 0; z-index: -2; background: radial-gradient(1200px 600px at 75% -10%, rgba(34, 211, 238, .28), transparent 60%), radial-gradient(900px 700px at 0% 110%, rgba(6, 182, 212, .18), transparent 60%), linear-gradient(180deg, #075069 0%, #043a50 45%, #022536 100%); }
-body::after { content: ""; position: fixed; inset: -40%; z-index: -1; pointer-events: none; opacity: .12; mix-blend-mode: screen; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25' filterUnits='userSpaceOnUse'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.009' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 -9 0 0 0 1.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); background-size: 560px 560px; animation: drift-page 60s linear infinite; will-change: transform; }
-@keyframes drift-page { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-560px, -560px, 0); } }
+body::before { content: ""; position: fixed; inset: 0; z-index: -2; background: radial-gradient(1100px 520px at 70% -12%, rgba(165, 243, 252, .38), transparent 62%), radial-gradient(800px 600px at 5% 105%, rgba(34, 211, 238, .16), transparent 60%), linear-gradient(180deg, #0b6782 0%, #095b74 45%, #074b62 100%); }
+body::after { content: ""; position: fixed; top: -30%; left: 10%; width: 80%; height: 130%; z-index: -1; pointer-events: none; background: repeating-linear-gradient(102deg, rgba(255, 255, 255, 0) 0 80px, rgba(207, 250, 254, .07) 80px 130px, rgba(255, 255, 255, 0) 130px 240px); transform-origin: 50% 0; mask-image: linear-gradient(180deg, #000 0%, transparent 70%); -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 70%); animation: sway 14s ease-in-out infinite alternate; will-change: transform; }
 
 .btn { background: var(--blue); border-color: var(--blue); color: #032536; }
 .btn:hover { background: var(--blue-dark); border-color: var(--blue-dark); box-shadow: 0 8px 24px rgba(34, 211, 238, .3); }
