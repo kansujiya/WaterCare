@@ -12,13 +12,50 @@
 
   var liters = new Intl.NumberFormat("en-IN");
 
+  // Words the script writes into the page and the WhatsApp message, in the
+  // page's language (<html lang="hi-IN"> on the Hindi pages).
+  var HI = /^hi/i.test(document.documentElement.lang);
+  var T = HI ? {
+    upTo: function (n) { return n + " L तक"; },
+    range: function (a, b) { return a + " से " + b + " L"; },
+    above: function (n) { return n + " L से ज़्यादा"; },
+    unsure: "पता नहीं",
+    unsureShort: "साइज़ पता नहीं",
+    tank: { rooftop: "छत की टंकी", underground: "अंडरग्राउंड सम्प" },
+    both: function (a, b) { return "छत की टंकी (" + a + ") + अंडरग्राउंड सम्प (" + b + ")"; },
+    capBoth: "छत की टंकी की क्षमता",
+    cap: "टंकी की क्षमता",
+    need: { name: "अपना नाम", address: "सोसाइटी या सेक्टर", date: "तारीख" },
+    please: function (list) { return "कृपया " + list + " भरें।"; },
+    hello: "नमस्ते " + cfg.brand + ", मुझे टंकी की सफ़ाई का कोटेशन भेजें।",
+    lines: { tank: "टंकी: ", name: "नाम: ", address: "पता: ", slot: "पसंदीदा स्लॉट: ", notes: "नोट: ", offer: "ऑफ़र: " },
+    chat: "नमस्ते " + cfg.brand + ", मुझे अपनी पानी की टंकी साफ़ करवानी है। सेक्टर/सोसाइटी: ",
+    locale: "hi-IN"
+  } : {
+    upTo: function (n) { return "Up to " + n + " L"; },
+    range: function (a, b) { return a + " to " + b + " L"; },
+    above: function (n) { return "Above " + n + " L"; },
+    unsure: "Not sure",
+    unsureShort: "size not sure",
+    tank: { rooftop: cfg.tanks.rooftop.label, underground: cfg.tanks.underground.label },
+    both: function (a, b) { return "Rooftop tank (" + a + ") + underground sump (" + b + ")"; },
+    capBoth: "Rooftop tank capacity",
+    cap: "Tank capacity",
+    need: { name: "your name", address: "your society or sector", date: "a date" },
+    please: function (list) { return "Please add " + list + "."; },
+    hello: "Hi " + cfg.brand + ", please send me a quote for tank cleaning.",
+    lines: { tank: "Tank: ", name: "Name: ", address: "Address: ", slot: "Preferred slot: ", notes: "Notes: ", offer: "Offer: " },
+    chat: "Hi " + cfg.brand + ", I want to get my water tank cleaned. Sector/society: ",
+    locale: "en-IN"
+  };
+
   function waUrl(text) {
     var url = "https://wa.me/" + cfg.whatsappNumber;
     return text ? url + "?text=" + encodeURIComponent(text) : url;
   }
 
   function rangeLabel(lo, hi) {
-    return lo === 0 ? "Up to " + liters.format(hi) + " L" : liters.format(lo + 1) + " to " + liters.format(hi) + " L";
+    return lo === 0 ? T.upTo(liters.format(hi)) : T.range(liters.format(lo + 1), liters.format(hi));
   }
 
   function selectedType() {
@@ -31,7 +68,7 @@
   document.querySelectorAll("[data-email]").forEach(function (el) { el.textContent = cfg.email; });
   document.querySelectorAll("[data-email-link]").forEach(function (el) { el.href = "mailto:" + cfg.email; });
   document.querySelectorAll("[data-wa-link]").forEach(function (el) {
-    el.href = waUrl(el.getAttribute("data-wa-text") || "Hi " + cfg.brand + ", I want to get my water tank cleaned. Sector/society: ");
+    el.href = waUrl(el.getAttribute("data-wa-text") || T.chat);
   });
   if (cfg.offerText) {
     document.querySelectorAll("[data-offer]").forEach(function (el) { el.textContent = cfg.offerText; el.hidden = false; });
@@ -44,8 +81,8 @@
     sizes.forEach(function (size, i) {
       sel.add(new Option(rangeLabel(i === 0 ? 0 : sizes[i - 1], size), String(i)));
     });
-    sel.add(new Option("Above " + liters.format(sizes[sizes.length - 1]) + " L", "large"));
-    sel.add(new Option("Not sure", "unsure"));
+    sel.add(new Option(T.above(liters.format(sizes[sizes.length - 1])), "large"));
+    sel.add(new Option(T.unsure, "unsure"));
     if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
@@ -54,7 +91,7 @@
     var both = type === "both";
     fillCapacity(capacitySel, cfg.tanks[both ? "rooftop" : type].sizes);
     if (both) fillCapacity(capacity2Sel, cfg.tanks.underground.sizes);
-    form.querySelector("[data-cap-label]").textContent = both ? "Rooftop tank capacity" : "Tank capacity";
+    form.querySelector("[data-cap-label]").textContent = both ? T.capBoth : T.cap;
     form.querySelector("[data-cap2-wrap]").hidden = !both;
     form.querySelector("[data-count-wrap]").hidden = both;
   }
@@ -68,11 +105,13 @@
   function describe() {
     var type = selectedType();
     if (type === "both") {
-      return "Rooftop tank (" + selText(capacitySel) + ") + underground sump (" + selText(capacity2Sel) + ")";
+      return T.both(selText(capacitySel), selText(capacity2Sel));
     }
     var n = parseInt(countSel.value, 10) || 1;
-    var label = cfg.tanks[type].label.toLowerCase() + (n > 1 ? "s" : "");
-    return n + " × " + label + ", " + selText(capacitySel).replace(/^Up to/, "up to").replace(/^Not sure$/, "size not sure");
+    var size = capacitySel.value === "unsure" ? T.unsureShort : selText(capacitySel);
+    if (HI) return n + " × " + T.tank[type] + ", " + size;
+    var label = T.tank[type].toLowerCase() + (n > 1 ? "s" : "");
+    return n + " × " + label + ", " + size.replace(/^Up to/, "up to");
   }
 
   function renderSummary() {
@@ -81,7 +120,7 @@
   }
 
   // Time slots and earliest date (tomorrow, local time).
-  cfg.timeSlots.forEach(function (s) { slotSel.add(new Option(s, s)); });
+  cfg.timeSlots.forEach(function (s) { slotSel.add(new Option(HI ? s.replace(" to ", " से ") : s, s)); });
   (function setMinDate() {
     var d = new Date();
     d.setDate(d.getDate() + 1);
@@ -93,7 +132,7 @@
   function friendlyDate(iso) {
     var p = String(iso).split("-");
     if (p.length !== 3) return iso;
-    return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" });
+    return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString(T.locale, { weekday: "short", day: "numeric", month: "short" });
   }
 
   form.addEventListener("change", function (e) {
@@ -105,11 +144,11 @@
     e.preventDefault();
     var data = new FormData(form);
     var missing = [];
-    if (!String(data.get("name") || "").trim()) missing.push("your name");
-    if (!String(data.get("address") || "").trim()) missing.push("your society or sector");
-    if (!data.get("date")) missing.push("a date");
+    if (!String(data.get("name") || "").trim()) missing.push(T.need.name);
+    if (!String(data.get("address") || "").trim()) missing.push(T.need.address);
+    if (!data.get("date")) missing.push(T.need.date);
     if (missing.length) {
-      errorBox.textContent = "Please add " + missing.join(", ") + ".";
+      errorBox.textContent = T.please(missing.join(", "));
       errorBox.hidden = false;
       return;
     }
@@ -117,16 +156,16 @@
 
     var type = selectedType();
     var lines = [
-      "Hi " + cfg.brand + ", please send me a quote for tank cleaning.",
+      T.hello,
       "",
-      "Tank: " + describe(),
-      "Name: " + String(data.get("name")).trim(),
-      "Address: " + String(data.get("address")).trim(),
-      "Preferred slot: " + friendlyDate(data.get("date")) + ", " + data.get("slot")
+      T.lines.tank + describe(),
+      T.lines.name + String(data.get("name")).trim(),
+      T.lines.address + String(data.get("address")).trim(),
+      T.lines.slot + friendlyDate(data.get("date")) + ", " + selText(slotSel)
     ];
     var notes = String(data.get("notes") || "").trim();
-    if (notes) lines.push("Notes: " + notes);
-    if (cfg.offerText) lines.push("Offer: " + cfg.offerText);
+    if (notes) lines.push(T.lines.notes + notes);
+    if (cfg.offerText) lines.push(T.lines.offer + cfg.offerText);
 
     if (typeof window.gtag === "function") window.gtag("event", "whatsapp_quote_request", { service: type });
     if (typeof window.va === "function") window.va("event", { name: "whatsapp_quote_request", data: { service: type } });
