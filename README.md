@@ -11,7 +11,8 @@ Single page website for a no-entry water tank cleaning service in Gurugram. Cust
 | `app.js` | Quote request form, WhatsApp link, gallery, lazy video embeds |
 | `styles.css` | Styles, mobile first |
 | `*-gurugram.html` | Service pages: overhead tanks, underground sumps, societies, pricing and quotes. Generated, don't edit by hand |
-| `scripts/build-pages.mjs` | Builds the service pages and `sitemap.xml` from `config.js` |
+| `scripts/build-pages.mjs` | Builds the service pages (English and `/hi/` Hindi) and `sitemap.xml` from `config.js` |
+| `scripts/build-hi.mjs` | Builds the Hindi homepage `hi/index.html` from `index.html` with an English-to-Hindi string list |
 | `robots.txt`, `sitemap.xml` | For search engines |
 | `og-image.jpg` | Preview image when the link is shared on WhatsApp or social media (source: `og-image.svg`) |
 
@@ -26,7 +27,7 @@ Search the repo for `PLACEHOLDER`, `9999`, `tanksaaf.in` and `Address to be adde
 5. **Photos**: put your images in `images/` (JPG or WebP, about 1200px wide, under 200 KB each) and list them in `photos` in `config.js`. The "Tanks we clean" section appears once the list has entries. Real before and after shots of your own jobs work best; if you use stock photos (Unsplash, Pexels), add the photographer credit and don't caption them as your work.
 6. **Hero illustration**: swap for a real crew photo when you have one (see the `PHOTO SLOT` comment).
 
-After any change to `config.js` (tank sizes, phone, WhatsApp, email), run `node scripts/build-pages.mjs` so the service pages and sitemap pick it up, then commit the result. The domain for those pages is the `SITE` constant at the top of that script.
+After any change to `config.js` (tank sizes, phone, WhatsApp, email), run `node scripts/build-pages.mjs` so the service pages and sitemap pick it up, then commit the result. After any change to `index.html`, run `node scripts/build-hi.mjs`; it stops with an error if an English sentence it translates has changed, so add or update that sentence's Hindi in the script. The domain for those pages is the `SITE` constant at the top of that script.
 
 If you pick a different brand name, change `brand` in `config.js` and the name in `index.html` (title, meta tags, JSON-LD).
 
