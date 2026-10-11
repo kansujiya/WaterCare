@@ -30,7 +30,7 @@ function sizeList(kind, lang = "en") {
 const pages = [
   {
     slug: "overhead-tank-cleaning-gurugram",
-    title: "Overhead Water Tank Cleaning in Gurugram | No-Entry | TankSaaf",
+    title: "Overhead Water Tank Cleaning in Gurugram | No-Entry | TipTop Water",
     description: "No-entry overhead and rooftop water tank cleaning in Gurugram (Gurgaon). Suction, jet wash and food-safe disinfection. Free quote on WhatsApp, pay after the job.",
     crumb: "Overhead tank cleaning",
     eyebrow: "Overhead and rooftop tanks",
@@ -66,7 +66,7 @@ const pages = [
   },
   {
     slug: "underground-tank-cleaning-gurugram",
-    title: "Underground Tank and Sump Cleaning in Gurugram | TankSaaf",
+    title: "Underground Tank and Sump Cleaning in Gurugram | TipTop Water",
     description: "No-entry underground water tank and sump cleaning in Gurugram (Gurgaon). Sludge suction, jet wash and disinfection. Free quote on WhatsApp, pay after the job.",
     crumb: "Underground tank cleaning",
     eyebrow: "Underground sumps",
@@ -104,7 +104,7 @@ const pages = [
   },
   {
     slug: "society-tank-cleaning-gurugram",
-    title: "Water Tank Cleaning for Societies and RWAs in Gurugram | TankSaaf",
+    title: "Water Tank Cleaning for Societies and RWAs in Gurugram | TipTop Water",
     description: "Scheduled no-entry water tank cleaning for Gurugram societies, RWAs and builder floors. Bulk rates for 5+ tanks, tower-by-tower scheduling and photo reports.",
     crumb: "Societies and RWAs",
     eyebrow: "Societies, RWAs and builder floors",
@@ -140,7 +140,7 @@ const pages = [
   },
   {
     slug: "water-tank-cleaning-price-gurugram",
-    title: "Water Tank Cleaning Cost in Gurugram: How Pricing Works | TankSaaf",
+    title: "Water Tank Cleaning Cost in Gurugram: How Pricing Works | TipTop Water",
     description: "What water tank cleaning costs depend on in Gurugram, what's included, and how to get a free fixed quote on WhatsApp for overhead tanks and underground sumps.",
     crumb: "Pricing and quotes",
     eyebrow: "Pricing and quotes",
@@ -192,7 +192,7 @@ const pages = [
 // the English page.
 const hindi = {
   "overhead-tank-cleaning-gurugram": {
-    title: "छत की पानी की टंकी की सफ़ाई गुरुग्राम | बिना अंदर उतरे | TankSaaf",
+    title: "छत की पानी की टंकी की सफ़ाई गुरुग्राम | बिना अंदर उतरे | TipTop Water",
     description: "गुरुग्राम (गुड़गांव) में छत और ओवरहेड पानी की टंकी की सफ़ाई, बिना अंदर उतरे। सक्शन, जेट वॉश और फ़ूड-सेफ़ कीटाणुनाशन। व्हाट्सऐप पर मुफ़्त कोटेशन, काम के बाद भुगतान।",
     crumb: "छत की टंकी की सफ़ाई",
     eyebrow: "छत और ओवरहेड टंकियां",
@@ -225,7 +225,7 @@ const hindi = {
     ]
   },
   "underground-tank-cleaning-gurugram": {
-    title: "अंडरग्राउंड टंकी और सम्प की सफ़ाई गुरुग्राम | TankSaaf",
+    title: "अंडरग्राउंड टंकी और सम्प की सफ़ाई गुरुग्राम | TipTop Water",
     description: "गुरुग्राम (गुड़गांव) में अंडरग्राउंड पानी की टंकी और सम्प की सफ़ाई, बिना अंदर उतरे। कीचड़ का सक्शन, जेट वॉश और कीटाणुनाशन। व्हाट्सऐप पर मुफ़्त कोटेशन, काम के बाद भुगतान।",
     crumb: "अंडरग्राउंड टंकी की सफ़ाई",
     eyebrow: "अंडरग्राउंड सम्प",
@@ -260,7 +260,7 @@ const hindi = {
     ]
   },
   "society-tank-cleaning-gurugram": {
-    title: "सोसाइटी और RWA के लिए पानी की टंकी की सफ़ाई गुरुग्राम | TankSaaf",
+    title: "सोसाइटी और RWA के लिए पानी की टंकी की सफ़ाई गुरुग्राम | TipTop Water",
     description: "गुरुग्राम की सोसाइटी, RWA और बिल्डर फ़्लोर के लिए शेड्यूल पर बिना अंदर उतरे टंकी सफ़ाई। 5+ टंकियों पर बल्क रेट, टावर-दर-टावर शेड्यूल और फ़ोटो रिपोर्ट।",
     crumb: "सोसाइटी और RWA",
     eyebrow: "सोसाइटी, RWA और बिल्डर फ़्लोर",
@@ -292,7 +292,7 @@ const hindi = {
     ]
   },
   "water-tank-cleaning-price-gurugram": {
-    title: "पानी की टंकी की सफ़ाई का खर्च गुरुग्राम: कीमत कैसे तय होती है | TankSaaf",
+    title: "पानी की टंकी की सफ़ाई का खर्च गुरुग्राम: कीमत कैसे तय होती है | TipTop Water",
     description: "गुरुग्राम में पानी की टंकी की सफ़ाई का खर्च किन बातों पर निर्भर है, क्या शामिल है, और छत की टंकी व अंडरग्राउंड सम्प के लिए व्हाट्सऐप पर मुफ़्त तय कोटेशन कैसे पाएं।",
     crumb: "कीमत और कोटेशन",
     eyebrow: "कीमत और कोटेशन",
@@ -382,7 +382,7 @@ const header = (t, slug) => `
     <div class="wrap topbar-inner">
       <a class="logo" href="${t.prefix}/" aria-label="${t.homeAria}">
         <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0d5c9e"/><path d="M16 6c4 5.6 7 9.2 7 12.8a7 7 0 0 1-14 0C9 15.2 12 11.6 16 6z" fill="#fff"/><path d="M13 19.5a3 3 0 0 0 3 3" stroke="#0d5c9e" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
-        <span class="wordmark"><span>Tank</span><span>Saaf</span></span>
+        <span class="wordmark"><span>TipTop</span><span>Water</span></span>
       </a>
       <nav class="nav" aria-label="Main">
         ${slugs.map((s) => `<a href="${t.prefix}/${s}">${t.nav[s]}</a>`).join("\n        ")}
@@ -402,7 +402,7 @@ const footer = (t) => `
   <footer class="footer">
     <div class="wrap footer-inner">
       <div>
-        <p class="logo"><span class="wordmark"><span>Tank</span><span>Saaf</span></span></p>
+        <p class="logo"><span class="wordmark"><span>TipTop</span><span>Water</span></span></p>
         <p>${t.tagline}</p>
       </div>
       <nav class="footer-links" aria-label="${t.footAria}">

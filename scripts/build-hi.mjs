@@ -14,11 +14,11 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const pairs = [
   // Page setup, links and language switch
   ['<html lang="en-IN">', '<html lang="hi-IN">'],
-  ['<link rel="canonical" href="https://tanksaaf.in/">', '<link rel="canonical" href="https://tanksaaf.in/hi/">'],
-  ['<meta property="og:url" content="https://tanksaaf.in/">', '<meta property="og:url" content="https://tanksaaf.in/hi/">'],
+  ['<link rel="canonical" href="https://tiptopwater.com/">', '<link rel="canonical" href="https://tiptopwater.com/hi/">'],
+  ['<meta property="og:url" content="https://tiptopwater.com/">', '<meta property="og:url" content="https://tiptopwater.com/hi/">'],
   ['<meta property="og:locale" content="en_IN">\n  <meta property="og:locale:alternate" content="hi_IN">', '<meta property="og:locale" content="hi_IN">\n  <meta property="og:locale:alternate" content="en_IN">'],
   ['<a class="lang-switch" href="/hi/" hreflang="hi" lang="hi">हिंदी</a>', '<a class="lang-switch" href="/" hreflang="en" lang="en">English</a>'],
-  ['<a class="logo" href="/" aria-label="TankSaaf home">', '<a class="logo" href="/hi/" aria-label="TankSaaf होम">'],
+  ['<a class="logo" href="/" aria-label="TipTop Water home">', '<a class="logo" href="/hi/" aria-label="TipTop Water होम">'],
   ['href="/overhead-tank-cleaning-gurugram"', 'href="/hi/overhead-tank-cleaning-gurugram"'],
   ['href="/underground-tank-cleaning-gurugram"', 'href="/hi/underground-tank-cleaning-gurugram"'],
   ['href="/society-tank-cleaning-gurugram"', 'href="/hi/society-tank-cleaning-gurugram"'],
@@ -26,13 +26,13 @@ const pairs = [
   ['<link rel="stylesheet" href="/styles.css">', '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" media="print" onload="this.media=\'all\'">\n  <link rel="stylesheet" href="/styles.css">'],
 
   // Head text
-  ['<title>Water Tank Cleaning in Gurugram (Gurgaon) | Non-Invasive | TankSaaf</title>', '<title>पानी की टंकी की सफ़ाई गुरुग्राम (गुड़गांव) | बिना अंदर उतरे | TankSaaf</title>'],
+  ['<title>Water Tank Cleaning in Gurugram (Gurgaon) | Non-Invasive | TipTop Water</title>', '<title>पानी की टंकी की सफ़ाई गुरुग्राम (गुड़गांव) | बिना अंदर उतरे | TipTop Water</title>'],
   ['Non-invasive water tank cleaning in Gurugram (Gurgaon) for overhead and underground tanks. Suction, jet wash and disinfection. Free quote on WhatsApp, pay after the job.', 'गुरुग्राम (गुड़गांव) में छत और अंडरग्राउंड पानी की टंकी की सफ़ाई, बिना किसी के अंदर उतरे। सक्शन, जेट वॉश और कीटाणुनाशन। व्हाट्सऐप पर मुफ़्त कोटेशन, काम के बाद भुगतान।'],
   ['Jet wash, sludge suction and disinfection for overhead and underground tanks. Free quote on WhatsApp, pay after the job.', 'छत और अंडरग्राउंड टंकियों के लिए जेट वॉश, कीचड़ का सक्शन और कीटाणुनाशन। व्हाट्सऐप पर मुफ़्त कोटेशन, काम के बाद भुगतान।'],
-  ['TankSaaf: no-entry water tank cleaning in Gurugram', 'TankSaaf: गुरुग्राम में बिना अंदर उतरे पानी की टंकी की सफ़ाई'],
+  ['TipTop Water: no-entry water tank cleaning in Gurugram', 'TipTop Water: गुरुग्राम में बिना अंदर उतरे पानी की टंकी की सफ़ाई'],
   ['No-entry water tank cleaning for overhead and underground tanks in Gurugram.', 'गुरुग्राम में छत और अंडरग्राउंड टंकियों की बिना अंदर उतरे सफ़ाई।'],
   ['No-entry water tank cleaning in Gurugram (Gurgaon).', 'गुरुग्राम (गुड़गांव) में बिना अंदर उतरे पानी की टंकी की सफ़ाई।'],
-  ['No-entry water tank cleaning in Gurugram | TankSaaf', 'गुरुग्राम में बिना अंदर उतरे पानी की टंकी की सफ़ाई | TankSaaf'],
+  ['No-entry water tank cleaning in Gurugram | TipTop Water', 'गुरुग्राम में बिना अंदर उतरे पानी की टंकी की सफ़ाई | TipTop Water'],
 
   // Header
   ['>Skip to booking<', '>बुकिंग पर जाएं<'],
@@ -137,7 +137,7 @@ const pairs = [
   ['<strong>Underground</strong><small>Concrete sump</small>', '<strong>अंडरग्राउंड</strong><small>कंक्रीट सम्प</small>'],
   ['<strong>Both</strong><small>Rooftop + sump</small>', '<strong>दोनों</strong><small>छत + सम्प</small>'],
   ['<span data-cap-label>Tank capacity</span>', '<span data-cap-label>टंकी की क्षमता</span>'],
-  ["Hi TankSaaf, I'd like a quote for our society. Number of tanks: , Society: ", 'नमस्ते TankSaaf, मुझे हमारी सोसाइटी के लिए कोटेशन चाहिए। टंकियों की संख्या: , सोसाइटी: '],
+  ["Hi TipTop Water, I'd like a quote for our society. Number of tanks: , Society: ", 'नमस्ते TipTop Water, मुझे हमारी सोसाइटी के लिए कोटेशन चाहिए। टंकियों की संख्या: , सोसाइटी: '],
   ['<label data-count-wrap>Number of tanks', '<label data-count-wrap>टंकियों की संख्या'],
   ['Underground sump capacity', 'अंडरग्राउंड सम्प की क्षमता'],
   ["Not sure of the size? Plastic tanks have the liters printed on the side. Most 2 to 3 BHK homes have 1,000 to 1,500 L. Pick your best guess and we'll confirm.", 'साइज़ पता नहीं? प्लास्टिक टंकी के साइड पर लीटर लिखे होते हैं। ज़्यादातर 2 से 3 BHK घरों में 1,000 से 1,500 L की टंकी होती है। अंदाज़ा चुनें, हम पुष्टि कर लेंगे।'],
@@ -154,7 +154,7 @@ const pairs = [
   // Comparison
   ['>The difference</p>', '>फ़र्क</p>'],
   ['<h2>How we compare</h2>', '<h2>हम आम सेवा से कैसे अलग हैं</h2>'],
-  ['What you get with TankSaaf against a typical tank cleaning service.', 'आम टंकी सफ़ाई सेवा के मुकाबले TankSaaf से आपको क्या मिलता है।'],
+  ['What you get with TipTop Water against a typical tank cleaning service.', 'आम टंकी सफ़ाई सेवा के मुकाबले TipTop Water से आपको क्या मिलता है।'],
   ['<span class="sr">Point</span>', '<span class="sr">बिंदु</span>'],
   ['<th scope="col">Typical service</th>', '<th scope="col">आम सेवा</th>'],
   ['data-label="Typical"', 'data-label="आम सेवा"'],
@@ -211,7 +211,7 @@ const pairs = [
   ['>MG Road</a>', '>एमजी रोड</a>'],
   ['>Old Gurgaon</a>', '>पुराना गुड़गांव</a>'],
   ['Not on the list? <a', 'आपका इलाका सूची में नहीं है? <a'],
-  ['Hi TankSaaf, do you cover my area? Sector/society: ', 'नमस्ते TankSaaf, क्या आप मेरे इलाके में सेवा देते हैं? सेक्टर/सोसाइटी: '],
+  ['Hi TipTop Water, do you cover my area? Sector/society: ', 'नमस्ते TipTop Water, क्या आप मेरे इलाके में सेवा देते हैं? सेक्टर/सोसाइटी: '],
   [">Ask us on WhatsApp</a> and we'll tell you if we cover your sector.", '>व्हाट्सऐप पर पूछें</a>, हम बता देंगे कि आपका सेक्टर कवर होता है या नहीं।'],
 
   // Guides
@@ -228,7 +228,7 @@ const pairs = [
   ['<p class="eyebrow">FAQ</p>', '<p class="eyebrow">सवाल-जवाब</p>'],
   ['Questions people ask before booking', 'बुकिंग से पहले लोग ये सवाल पूछते हैं'],
   ["<strong>Still unsure?</strong> Send us a photo of your tank and we'll send you a quote.", '<strong>अभी भी तय नहीं कर पा रहे?</strong> अपनी टंकी की फ़ोटो भेजिए, हम कोटेशन भेज देंगे।'],
-  ['Hi TankSaaf, here is a photo of my tank. What would it cost?', 'नमस्ते TankSaaf, यह मेरी टंकी की फ़ोटो है। इसका खर्च कितना होगा?'],
+  ['Hi TipTop Water, here is a photo of my tank. What would it cost?', 'नमस्ते TipTop Water, यह मेरी टंकी की फ़ोटो है। इसका खर्च कितना होगा?'],
   ['How often should I clean my water tank?', 'पानी की टंकी कितने समय में साफ़ करवानी चाहिए?'],
   ['Every 6 months is the common rule. Gurugram supply water carries silt, so sludge and algae build up quickly, especially after summer and the monsoon.', 'आम नियम है हर 6 महीने में। गुरुग्राम के सप्लाई पानी में गाद आती है, इसलिए कीचड़ और काई जल्दी जमती है, खासकर गर्मी और मानसून के बाद।'],
   ['Does anyone go inside the tank?', 'क्या कोई टंकी के अंदर उतरता है?'],
@@ -250,7 +250,7 @@ const pairs = [
   ['<strong>Inlet water filters</strong><span>Stop silt before it reaches your tank</span>', '<strong>इनलेट वॉटर फ़िल्टर</strong><span>गाद को टंकी तक पहुंचने से पहले रोकें</span>'],
   ['<strong>Rooftop heat covers</strong><span>Cooler tank water in summer</span>', '<strong>टंकी के हीट कवर</strong><span>गर्मियों में टंकी का पानी ठंडा</span>'],
   ['<strong>Water pumps</strong><span>Pressure and booster pumps</span>', '<strong>वॉटर पंप</strong><span>प्रेशर और बूस्टर पंप</span>'],
-  ['Hi TankSaaf, please notify me when inlet filters, heat covers or pumps are available.', 'नमस्ते TankSaaf, इनलेट फ़िल्टर, हीट कवर या पंप उपलब्ध होने पर मुझे बताएं।'],
+  ['Hi TipTop Water, please notify me when inlet filters, heat covers or pumps are available.', 'नमस्ते TipTop Water, इनलेट फ़िल्टर, हीट कवर या पंप उपलब्ध होने पर मुझे बताएं।'],
   ['Notify me on WhatsApp →', 'व्हाट्सऐप पर मुझे बताएं →'],
 
   // Footer and mobile bar

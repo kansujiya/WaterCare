@@ -2,16 +2,16 @@
 // Anything marked PLACEHOLDER must be replaced before launch (also update the
 // matching values in index.html: the JSON-LD block, canonical URL and footer).
 window.SITE_CONFIG = {
-  brand: "TankSaaf",
+  brand: "TipTop Water",
   // The site's address. Change it here when the domain is bought, then run
   // node scripts/build-pages.mjs to update every page, the sitemap and robots.txt.
-  siteUrl: "https://tanksaaf.in", // PLACEHOLDER
+  siteUrl: "https://tiptopwater.com", // PLACEHOLDER
 
   // WhatsApp number in international format, digits only (91 + 10 digit mobile).
   whatsappNumber: "919999999999", // PLACEHOLDER
   phoneDisplay: "+91 99999 99999", // PLACEHOLDER
   phoneLink: "+919999999999", // PLACEHOLDER
-  email: "hello@tanksaaf.in", // PLACEHOLDER
+  email: "hello@tiptopwater.com", // PLACEHOLDER
 
   // Tank sizes offered in the booking form, in liters. Prices are not shown on
   // the site; quotes are sent manually on WhatsApp. Sizes above the last value
