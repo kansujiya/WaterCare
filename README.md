@@ -12,6 +12,7 @@ Single page website for a no-entry water tank cleaning service in Gurugram. Cust
 | `styles.css` | Styles, mobile first |
 | `*-gurugram.html` | Service pages: overhead tanks, underground sumps, societies, pricing and quotes. Generated, don't edit by hand |
 | `scripts/build-pages.mjs` | Builds the service pages (English and `/hi/` Hindi) and `sitemap.xml` from `config.js` |
+| `content/guides.mjs`, `content/areas.mjs` | Text of the guides and Gurugram area pages, English and Hindi |
 | `scripts/build-hi.mjs` | Builds the Hindi homepage `hi/index.html` from `index.html` with an English-to-Hindi string list |
 | `robots.txt`, `sitemap.xml` | For search engines |
 | `og-image.jpg` | Preview image when the link is shared on WhatsApp or social media (source: `og-image.svg`) |
@@ -51,3 +52,7 @@ python3 -m http.server 8000
 - Create a Google Business Profile for Gurugram with the same name, phone and address as the site. It matters more than the website for "near me" searches.
 - Submit `sitemap.xml` in Google Search Console.
 - Turn on Vercel Web Analytics (or add Google Analytics 4). The quote button already sends a `whatsapp_quote_request` event to either if present.
+
+## Adding a guide or area page
+
+Add an entry to `content/guides.mjs` or `content/areas.mjs` (English `en` and Hindi `hi` text), then run `node scripts/build-pages.mjs`. It writes the pages, adds them to the sitemap and links them from the related lists. The domain comes from `siteUrl` in `config.js`.

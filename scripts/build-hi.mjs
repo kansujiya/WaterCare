@@ -214,6 +214,16 @@ const pairs = [
   ['Hi TankSaaf, do you cover my area? Sector/society: ', 'नमस्ते TankSaaf, क्या आप मेरे इलाके में सेवा देते हैं? सेक्टर/सोसाइटी: '],
   [">Ask us on WhatsApp</a> and we'll tell you if we cover your sector.", '>व्हाट्सऐप पर पूछें</a>, हम बता देंगे कि आपका सेक्टर कवर होता है या नहीं।'],
 
+  // Guides
+  ['<p class="eyebrow">Guides</p>', '<p class="eyebrow">गाइड</p>'],
+  ['Water tank guides for Gurugram homes', 'गुरुग्राम के घरों के लिए पानी की टंकी की गाइड'],
+  ['<strong>How often should you clean a water tank?</strong><span>The 6-month rule and when to clean sooner.</span>', '<strong>टंकी कितने दिन में साफ़ करवाएं?</strong><span>6 महीने का नियम, और कब पहले करवाएं।</span>'],
+  ['<strong>7 signs your tank needs cleaning</strong><span>Smell, colour, grit, slime and low pressure.</span>', '<strong>टंकी साफ़ करवाने के 7 संकेत</strong><span>बदबू, रंग, गाद, चिकनाहट और कम प्रेशर।</span>'],
+  ['<strong>Clean it yourself or call a pro?</strong><span>Safe steps for small rooftop tanks, and when not to try.</span>', '<strong>ख़ुद साफ़ करें या प्रोफ़ेशनल बुलाएं?</strong><span>छोटी छत की टंकी के सुरक्षित स्टेप, और कब ख़ुद न करें।</span>'],
+  ['<strong>Why nobody should enter a sump</strong><span>The hidden dangers of underground tanks.</span>', '<strong>सम्प में कोई क्यों न उतरे</strong><span>अंडरग्राउंड टंकी के छिपे ख़तरे।</span>'],
+  ['Read guide →', 'गाइड पढ़ें →'],
+  ['All water tank guides →', 'पानी की टंकी की सभी गाइड →'],
+
   // FAQ (also replaces the FAQ structured data in the head)
   ['<p class="eyebrow">FAQ</p>', '<p class="eyebrow">सवाल-जवाब</p>'],
   ['Questions people ask before booking', 'बुकिंग से पहले लोग ये सवाल पूछते हैं'],
