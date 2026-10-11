@@ -1,9 +1,11 @@
-// Builds the Gurugram service pages from config.js so contact details stay
-// in one place, in English and Hindi (/hi/). Run after editing config.js:
+// Builds every generated page from config.js and content/, in English and
+// Hindi (/hi/): the service pages, the Gurugram area pages, the guides, the
+// sitemap, robots.txt and the Hindi homepage. Run after editing config.js,
+// content/ or index.html:
 //   node scripts/build-pages.mjs
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import vm from "node:vm";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -11,7 +13,7 @@ const sandbox = { window: {} };
 vm.runInNewContext(readFileSync(join(root, "config.js"), "utf8"), sandbox);
 const cfg = sandbox.window.SITE_CONFIG;
 
-const SITE = "https://tanksaaf.in"; // PLACEHOLDER: your domain
+const SITE = cfg.siteUrl.replace(/\/$/, "");
 const lit = (n) => n.toLocaleString("en-IN");
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const waLink = (text) => "https://wa.me/" + cfg.whatsappNumber + "?text=" + encodeURIComponent(text);
@@ -28,7 +30,7 @@ function sizeList(kind, lang = "en") {
 const pages = [
   {
     slug: "overhead-tank-cleaning-gurugram",
-    title: "Overhead Water Tank Cleaning in Gurugram | No-Entry | TankSaaf",
+    title: "Overhead Water Tank Cleaning in Gurugram | No-Entry | TipTop Water",
     description: "No-entry overhead and rooftop water tank cleaning in Gurugram (Gurgaon). Suction, jet wash and food-safe disinfection. Free quote on WhatsApp, pay after the job.",
     crumb: "Overhead tank cleaning",
     eyebrow: "Overhead and rooftop tanks",
@@ -64,7 +66,7 @@ const pages = [
   },
   {
     slug: "underground-tank-cleaning-gurugram",
-    title: "Underground Tank and Sump Cleaning in Gurugram | TankSaaf",
+    title: "Underground Tank and Sump Cleaning in Gurugram | TipTop Water",
     description: "No-entry underground water tank and sump cleaning in Gurugram (Gurgaon). Sludge suction, jet wash and disinfection. Free quote on WhatsApp, pay after the job.",
     crumb: "Underground tank cleaning",
     eyebrow: "Underground sumps",
@@ -102,7 +104,7 @@ const pages = [
   },
   {
     slug: "society-tank-cleaning-gurugram",
-    title: "Water Tank Cleaning for Societies and RWAs in Gurugram | TankSaaf",
+    title: "Water Tank Cleaning for Societies and RWAs in Gurugram | TipTop Water",
     description: "Scheduled no-entry water tank cleaning for Gurugram societies, RWAs and builder floors. Bulk rates for 5+ tanks, tower-by-tower scheduling and photo reports.",
     crumb: "Societies and RWAs",
     eyebrow: "Societies, RWAs and builder floors",
@@ -138,7 +140,7 @@ const pages = [
   },
   {
     slug: "water-tank-cleaning-price-gurugram",
-    title: "Water Tank Cleaning Cost in Gurugram: How Pricing Works | TankSaaf",
+    title: "Water Tank Cleaning Cost in Gurugram: How Pricing Works | TipTop Water",
     description: "What water tank cleaning costs depend on in Gurugram, what's included, and how to get a free fixed quote on WhatsApp for overhead tanks and underground sumps.",
     crumb: "Pricing and quotes",
     eyebrow: "Pricing and quotes",
@@ -190,7 +192,7 @@ const pages = [
 // the English page.
 const hindi = {
   "overhead-tank-cleaning-gurugram": {
-    title: "छत की पानी की टंकी की सफ़ाई गुरुग्राम | बिना अंदर उतरे | TankSaaf",
+    title: "छत की पानी की टंकी की सफ़ाई गुरुग्राम | बिना अंदर उतरे | TipTop Water",
     description: "गुरुग्राम (गुड़गांव) में छत और ओवरहेड पानी की टंकी की सफ़ाई, बिना अंदर उतरे। सक्शन, जेट वॉश और फ़ूड-सेफ़ कीटाणुनाशन। व्हाट्सऐप पर मुफ़्त कोटेशन, काम के बाद भुगतान।",
     crumb: "छत की टंकी की सफ़ाई",
     eyebrow: "छत और ओवरहेड टंकियां",
@@ -223,7 +225,7 @@ const hindi = {
     ]
   },
   "underground-tank-cleaning-gurugram": {
-    title: "अंडरग्राउंड टंकी और सम्प की सफ़ाई गुरुग्राम | TankSaaf",
+    title: "अंडरग्राउंड टंकी और सम्प की सफ़ाई गुरुग्राम | TipTop Water",
     description: "गुरुग्राम (गुड़गांव) में अंडरग्राउंड पानी की टंकी और सम्प की सफ़ाई, बिना अंदर उतरे। कीचड़ का सक्शन, जेट वॉश और कीटाणुनाशन। व्हाट्सऐप पर मुफ़्त कोटेशन, काम के बाद भुगतान।",
     crumb: "अंडरग्राउंड टंकी की सफ़ाई",
     eyebrow: "अंडरग्राउंड सम्प",
@@ -258,7 +260,7 @@ const hindi = {
     ]
   },
   "society-tank-cleaning-gurugram": {
-    title: "सोसाइटी और RWA के लिए पानी की टंकी की सफ़ाई गुरुग्राम | TankSaaf",
+    title: "सोसाइटी और RWA के लिए पानी की टंकी की सफ़ाई गुरुग्राम | TipTop Water",
     description: "गुरुग्राम की सोसाइटी, RWA और बिल्डर फ़्लोर के लिए शेड्यूल पर बिना अंदर उतरे टंकी सफ़ाई। 5+ टंकियों पर बल्क रेट, टावर-दर-टावर शेड्यूल और फ़ोटो रिपोर्ट।",
     crumb: "सोसाइटी और RWA",
     eyebrow: "सोसाइटी, RWA और बिल्डर फ़्लोर",
@@ -290,7 +292,7 @@ const hindi = {
     ]
   },
   "water-tank-cleaning-price-gurugram": {
-    title: "पानी की टंकी की सफ़ाई का खर्च गुरुग्राम: कीमत कैसे तय होती है | TankSaaf",
+    title: "पानी की टंकी की सफ़ाई का खर्च गुरुग्राम: कीमत कैसे तय होती है | TipTop Water",
     description: "गुरुग्राम में पानी की टंकी की सफ़ाई का खर्च किन बातों पर निर्भर है, क्या शामिल है, और छत की टंकी व अंडरग्राउंड सम्प के लिए व्हाट्सऐप पर मुफ़्त तय कोटेशन कैसे पाएं।",
     crumb: "कीमत और कोटेशन",
     eyebrow: "कीमत और कोटेशन",
@@ -338,7 +340,7 @@ const hindi = {
 // Words around the page content, per language.
 const UI = {
   en: {
-    htmlLang: "en-IN", ogLocale: "en_IN", ogAlt: "hi_IN", prefix: "",
+    htmlLang: "en-IN", ogLocale: "en_IN", ogAlt: "hi_IN", prefix: "", guidesNav: "Guides", guidesFoot: "Water tank guides",
     home: "Home", homeAria: `${cfg.brand} home`, call: "Call us", freeQuote: "Free quote",
     nav: { "overhead-tank-cleaning-gurugram": "Overhead tanks", "underground-tank-cleaning-gurugram": "Underground sumps", "society-tank-cleaning-gurugram": "Societies", "water-tank-cleaning-price-gurugram": "Pricing" },
     foot: { "overhead-tank-cleaning-gurugram": "Overhead tank cleaning", "underground-tank-cleaning-gurugram": "Underground tank cleaning", "society-tank-cleaning-gurugram": "Societies and RWAs", "water-tank-cleaning-price-gurugram": "Pricing and quotes" },
@@ -355,7 +357,7 @@ const UI = {
     mbarSmall: "No-entry tank cleaning", mbarStrong: "Free quote", mbarBtn: "Get quote"
   },
   hi: {
-    htmlLang: "hi-IN", ogLocale: "hi_IN", ogAlt: "en_IN", prefix: "/hi",
+    htmlLang: "hi-IN", ogLocale: "hi_IN", ogAlt: "en_IN", prefix: "/hi", guidesNav: "गाइड", guidesFoot: "पानी की टंकी की गाइड",
     home: "होम", homeAria: `${cfg.brand} होम`, call: "हमें कॉल करें", freeQuote: "मुफ़्त कोटेशन",
     nav: { "overhead-tank-cleaning-gurugram": "छत की टंकी", "underground-tank-cleaning-gurugram": "अंडरग्राउंड सम्प", "society-tank-cleaning-gurugram": "सोसाइटी", "water-tank-cleaning-price-gurugram": "कीमत" },
     foot: { "overhead-tank-cleaning-gurugram": "छत की टंकी की सफ़ाई", "underground-tank-cleaning-gurugram": "अंडरग्राउंड टंकी की सफ़ाई", "society-tank-cleaning-gurugram": "सोसाइटी और RWA", "water-tank-cleaning-price-gurugram": "कीमत और कोटेशन" },
@@ -379,11 +381,12 @@ const header = (t, slug) => `
   <header class="topbar is-scrolled">
     <div class="wrap topbar-inner">
       <a class="logo" href="${t.prefix}/" aria-label="${t.homeAria}">
-        <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0d5c9e"/><path d="M16 6c4 5.6 7 9.2 7 12.8a7 7 0 0 1-14 0C9 15.2 12 11.6 16 6z" fill="#fff"/><path d="M13 19.5a3 3 0 0 0 3 3" stroke="#0d5c9e" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
-        <span class="wordmark"><span>Tank</span><span>Saaf</span></span>
+        <svg viewBox="0 0 64 64" width="32" height="32" aria-hidden="true"><path d="M32 4c11 15 20 25 20 36a20 20 0 0 1-40 0C12 29 21 19 32 4z" fill="#38bdf8"/><path d="M22 41l7 7 13-15" fill="none" stroke="#062c58" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="wordmark"><span>TipTop</span><span>Water</span></span>
       </a>
       <nav class="nav" aria-label="Main">
         ${slugs.map((s) => `<a href="${t.prefix}/${s}">${t.nav[s]}</a>`).join("\n        ")}
+        <a href="${t.prefix}/guides">${t.guidesNav}</a>
       </nav>
       <div class="topbar-cta">
         <a class="lang-switch" href="${t.switchHref(slug)}" hreflang="${t.switchLang}" lang="${t.switchLang}">${t.switchText}</a>
@@ -399,11 +402,12 @@ const footer = (t) => `
   <footer class="footer">
     <div class="wrap footer-inner">
       <div>
-        <p class="logo"><span class="wordmark"><span>Tank</span><span>Saaf</span></span></p>
+        <p class="logo"><span class="wordmark"><span>TipTop</span><span>Water</span></span></p>
         <p>${t.tagline}</p>
       </div>
       <nav class="footer-links" aria-label="${t.footAria}">
         ${slugs.map((s) => `<a href="${t.prefix}/${s}">${t.foot[s]}</a>`).join("\n        ")}
+        <a href="${t.prefix}/guides">${t.guidesFoot}</a>
       </nav>
       <address>
         <!-- PLACEHOLDER: replace address, hours and contacts with real details -->
@@ -418,55 +422,87 @@ const footer = (t) => `
 
 const waIcon = `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>`;
 
-function render(base, lang) {
-  const t = UI[lang];
-  const p = lang === "hi" ? { ...base, ...hindi[base.slug] } : base;
-  const list = lang === "hi" ? pages.map((o) => ({ ...o, ...hindi[o.slug] })) : pages;
-  const enUrl = `${SITE}/${p.slug}`;
-  const hiUrl = `${SITE}/hi/${p.slug}`;
-  const url = lang === "hi" ? hiUrl : enUrl;
-  const bookHref = `${t.prefix}/?type=${p.type}#book`;
-  const primaryCta = p.societyCta
+// Guides and area pages live in content/*.mjs as plain data, one entry per
+// page with English and Hindi text.
+const loadContent = async (file) => {
+  if (!existsSync(join(root, "content", file))) { console.warn(`content/${file} not found, skipping`); return []; }
+  return (await import(pathToFileURL(join(root, "content", file)).href)).default(cfg.brand);
+};
+const guides = await loadContent("guides.mjs");
+const areas = await loadContent("areas.mjs");
+const PUBLISHED = "2026-10-11"; // first publish date of the guides, for Article data
+
+const MORE = {
+  en: {
+    guides: "Guides", guidesTitle: `Water Tank Cleaning Guides for Gurugram Homes | ${cfg.brand}`,
+    guidesDesc: "Plain-language guides on keeping home water tanks clean in Gurugram: how often to clean, warning signs, the cleaning process, safety and seasonal checklists.",
+    guidesH1: "Water tank guides", guidesEyebrow: "Guides",
+    guidesLead: "Straight answers about keeping your rooftop tank and underground sump clean, written for Gurugram homes and societies.",
+    read: "Read guide →", moreGuides: "More guides", areaEyebrow: "Service area", areasTitle: "Other areas we cover",
+    services: "Our services", serviceLinks: { "overhead-tank-cleaning-gurugram": "Overhead tank cleaning", "underground-tank-cleaning-gurugram": "Underground sump cleaning", "society-tank-cleaning-gurugram": "Societies and RWAs", "water-tank-cleaning-price-gurugram": "How pricing works" }
+  },
+  hi: {
+    guides: "गाइड", guidesTitle: `पानी की टंकी की सफ़ाई गाइड: गुरुग्राम के घरों के लिए | ${cfg.brand}`,
+    guidesDesc: "गुरुग्राम के घरों के लिए पानी की टंकी साफ़ रखने की आसान गाइड: कितने समय में सफ़ाई, गंदगी के संकेत, सफ़ाई का तरीका, सुरक्षा और मौसम के हिसाब से चेकलिस्ट।",
+    guidesH1: "पानी की टंकी की गाइड", guidesEyebrow: "गाइड",
+    guidesLead: "छत की टंकी और अंडरग्राउंड सम्प को साफ़ रखने के सीधे जवाब, गुरुग्राम के घरों और सोसाइटी के लिए।",
+    read: "गाइड पढ़ें →", moreGuides: "और गाइड", areaEyebrow: "सेवा क्षेत्र", areasTitle: "हम इन इलाकों में भी आते हैं",
+    services: "हमारी सेवाएं", serviceLinks: { "overhead-tank-cleaning-gurugram": "छत की टंकी की सफ़ाई", "underground-tank-cleaning-gurugram": "अंडरग्राउंड सम्प की सफ़ाई", "society-tank-cleaning-gurugram": "सोसाइटी और RWA", "water-tank-cleaning-price-gurugram": "कीमत कैसे तय होती है" }
+  }
+};
+
+const faqLd = (faqs) => ({
+  "@type": "FAQPage",
+  mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a.replace(/<[^>]+>/g, "") } }))
+});
+const crumbLd = (crumbs) => ({
+  "@type": "BreadcrumbList",
+  itemListElement: crumbs.map(([name, item], i) => ({ "@type": "ListItem", position: i + 1, name, item }))
+});
+
+// One page shell for every generated page. `path` is the English path
+// without a leading slash ("" for home, "guides/x" for a guide).
+function page(o) {
+  const t = UI[o.lang];
+  const enUrl = `${SITE}/${o.path}`;
+  const hiUrl = `${SITE}/hi/${o.path}`;
+  const url = o.lang === "hi" ? hiUrl : enUrl;
+  const bookHref = `${t.prefix}/?type=${o.type || "rooftop"}#book`;
+  const primaryCta = o.societyCta
     ? `<a class="btn btn-lg btn-wa" href="${esc(waLink(t.societyText))}" target="_blank" rel="noopener">${waIcon}${t.societyCta}</a>`
     : `<a class="btn btn-lg" href="${bookHref}">${t.getFree}</a>`;
-  const ld = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: t.home, item: SITE + t.prefix + "/" },
-          { "@type": "ListItem", position: 2, name: p.crumb, item: url }
-        ]
-      },
-      {
-        "@type": "Service",
-        name: base.serviceName,
-        serviceType: "Water tank cleaning",
-        url,
-        provider: { "@id": SITE + "/#business" },
-        areaServed: { "@type": "City", name: "Gurugram", alternateName: "Gurgaon" }
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: p.faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } }))
-      }
-    ]
-  };
-  const related = list.filter((o) => o.slug !== p.slug)
-    .map((o) => `<li><a href="${t.prefix}/${o.slug}">${o.h1}</a></li>`).join("\n            ");
-  const devanagariFont = lang === "hi"
+  const crumbs = [[t.home, SITE + t.prefix + "/"], ...o.crumbs.map(([name, path]) => [name, `${SITE}${t.prefix}/${path}`])];
+  const ld = { "@context": "https://schema.org", "@graph": [crumbLd(crumbs), ...o.ld, ...(o.faqs && o.faqs.length ? [faqLd(o.faqs)] : [])] };
+  const crumbHtml = [`<a href="${t.prefix}/">${t.home}</a>`]
+    .concat(o.crumbs.map(([name, path], i) => (i === o.crumbs.length - 1 ? `<span>${name}</span>` : `<a href="${t.prefix}/${path}">${name}</a>`)))
+    .join(` <span aria-hidden="true">/</span> `);
+  const devanagariFont = o.lang === "hi"
     ? `\n  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" media="print" onload="this.media='all'">`
     : "";
+  const faqHtml = o.faqs && o.faqs.length ? `
+
+        <h2>${t.questions}</h2>
+        <div class="faq">
+          ${o.faqs.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join("\n          ")}
+        </div>` : "";
+  const relatedHtml = o.related.filter((group) => group.links.length).map((group) => `
+    <section class="section section-surface">
+      <div class="wrap">
+        <h2 class="h3">${group.title}</h2>
+        <ul class="related">
+            ${group.links.map(([href, text]) => `<li><a href="${href}">${text}</a></li>`).join("\n            ")}
+        </ul>
+      </div>
+    </section>`).join("\n");
 
   return `<!doctype html>
-<!-- Generated by scripts/build-pages.mjs from config.js. Edit the script, not this file. -->
+<!-- Generated by scripts/build-pages.mjs from config.js and content/. Edit those, not this file. -->
 <html lang="${t.htmlLang}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>${esc(p.title)}</title>
-  <meta name="description" content="${esc(p.description)}">
+  <title>${esc(o.title)}</title>
+  <meta name="description" content="${esc(o.description)}">
   <link rel="canonical" href="${url}">
   <link rel="alternate" hreflang="en-IN" href="${enUrl}">
   <link rel="alternate" hreflang="hi-IN" href="${hiUrl}">
@@ -474,24 +510,24 @@ function render(base, lang) {
   <meta name="theme-color" content="#0b549a">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="${o.ogType || "website"}">
   <meta property="og:locale" content="${t.ogLocale}">
   <meta property="og:locale:alternate" content="${t.ogAlt}">
   <meta property="og:site_name" content="${cfg.brand}">
-  <meta property="og:title" content="${esc(p.h1)} | ${cfg.brand}">
-  <meta property="og:description" content="${esc(p.description)}">
+  <meta property="og:title" content="${esc(o.h1)} | ${cfg.brand}">
+  <meta property="og:description" content="${esc(o.description)}">
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${SITE}/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" media="print" onload="this.media='all'">${devanagariFont}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" media="print" onload="this.media='all'">${devanagariFont}
   <link rel="stylesheet" href="/styles.css">
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body class="subpage">
   <div class="sea-bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-${header(t, p.slug)}
+${header(t, o.path)}
 
   <main>
     <section class="page-hero">
@@ -503,10 +539,10 @@ ${header(t, p.slug)}
         <svg class="wave wave-5" viewBox="0 0 2880 160" preserveAspectRatio="none"><path d="M0 132 Q360 106 720 132 T1440 132 T2160 132 T2880 132 V160 H0 Z"/></svg>
       </div>
       <div class="wrap">
-        <nav class="crumbs" aria-label="Breadcrumb"><a href="${t.prefix}/">${t.home}</a> <span aria-hidden="true">/</span> <span>${p.crumb}</span></nav>
-        <p class="eyebrow">${p.eyebrow}</p>
-        <h1>${p.h1}</h1>
-        <p class="lead">${p.lead}</p>
+        <nav class="crumbs" aria-label="Breadcrumb">${crumbHtml}</nav>
+        <p class="eyebrow">${o.eyebrow}</p>
+        <h1>${o.h1}</h1>
+        <p class="lead">${o.lead}</p>
         <div class="hero-cta">
           ${primaryCta}
           <a class="btn btn-lg btn-ghost" href="${esc(waLink(t.chatText))}" target="_blank" rel="noopener">${waIcon}${t.chat}</a>
@@ -519,12 +555,7 @@ ${header(t, p.slug)}
 
     <section class="section">
       <div class="wrap prose">
-        ${p.body.trim()}
-
-        <h2>${t.questions}</h2>
-        <div class="faq">
-          ${p.faqs.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join("\n          ")}
-        </div>
+        ${o.body.trim()}${faqHtml}
       </div>
     </section>
 
@@ -537,15 +568,7 @@ ${header(t, p.slug)}
         <a class="btn btn-lg btn-light" href="${bookHref}">${t.ctaBtn}</a>
       </div>
     </section>
-
-    <section class="section section-surface">
-      <div class="wrap">
-        <h2 class="h3">${t.more}</h2>
-        <ul class="related">
-            ${related}
-        </ul>
-      </div>
-    </section>
+${relatedHtml}
   </main>
 ${footer(t)}
 
@@ -558,16 +581,104 @@ ${footer(t)}
 `;
 }
 
-mkdirSync(join(root, "hi"), { recursive: true });
-for (const p of pages) {
-  writeFileSync(join(root, p.slug + ".html"), render(p, "en"));
-  writeFileSync(join(root, "hi", p.slug + ".html"), render(p, "hi"));
-  console.log("wrote", p.slug + ".html", "and hi/" + p.slug + ".html");
+const tr = (entry, lang) => (lang === "hi" ? { ...entry, ...(entry.hi || hindi[entry.slug]) } : { ...entry, ...(entry.en || {}) });
+const serviceLinks = (lang, skip) => slugs.filter((s) => s !== skip).map((s) => [`${UI[lang].prefix}/${s}`, MORE[lang].serviceLinks[s]]);
+
+function renderService(base, lang) {
+  const t = UI[lang];
+  const p = tr(base, lang);
+  const url = `${SITE}${t.prefix}/${p.slug}`;
+  return page({
+    lang, path: p.slug, title: p.title, description: p.description, crumbs: [[p.crumb, p.slug]],
+    eyebrow: p.eyebrow, h1: p.h1, lead: p.lead, body: p.body, faqs: p.faqs, type: p.type, societyCta: p.societyCta,
+    ld: [{ "@type": "Service", name: base.serviceName, serviceType: "Water tank cleaning", url, provider: { "@id": SITE + "/#business" }, areaServed: { "@type": "City", name: "Gurugram", alternateName: "Gurgaon" } }],
+    related: [
+      { title: t.more, links: pages.filter((o) => o.slug !== p.slug).map((o) => [`${t.prefix}/${o.slug}`, tr(o, lang).h1]) },
+      { title: MORE[lang].moreGuides, links: guides.slice(0, 3).map((g) => [`${t.prefix}/guides/${g.slug}`, tr(g, lang).h1]) }
+    ]
+  });
+}
+
+function renderGuide(g, lang) {
+  const t = UI[lang];
+  const m = MORE[lang];
+  const p = tr(g, lang);
+  const url = `${SITE}${t.prefix}/guides/${g.slug}`;
+  return page({
+    lang, path: `guides/${g.slug}`, title: p.title, description: p.description, ogType: "article",
+    crumbs: [[m.guides, "guides"], [p.h1, `guides/${g.slug}`]],
+    eyebrow: m.guidesEyebrow, h1: p.h1, lead: p.lead, body: p.body, faqs: p.faqs,
+    ld: [{
+      "@type": "Article", headline: p.h1, description: p.description, inLanguage: t.htmlLang, url, mainEntityOfPage: url,
+      image: `${SITE}/og-image.jpg`, datePublished: PUBLISHED, dateModified: PUBLISHED,
+      author: { "@type": "Organization", name: cfg.brand, url: SITE + "/" }, publisher: { "@id": SITE + "/#business" }
+    }],
+    related: [
+      { title: m.moreGuides, links: guides.filter((o) => o.slug !== g.slug).map((o) => [`${t.prefix}/guides/${o.slug}`, tr(o, lang).h1]) },
+      { title: m.services, links: serviceLinks(lang) }
+    ]
+  });
+}
+
+function renderArea(a, lang) {
+  const t = UI[lang];
+  const m = MORE[lang];
+  const p = tr(a, lang);
+  const name = lang === "hi" ? a.areaHi : a.area;
+  const url = `${SITE}${t.prefix}/${a.slug}`;
+  return page({
+    lang, path: a.slug, title: p.title, description: p.description, crumbs: [[name, a.slug]],
+    eyebrow: `${m.areaEyebrow} · ${name}`, h1: p.h1, lead: p.lead, body: p.body, faqs: p.faqs,
+    ld: [{ "@type": "Service", name: `Water tank cleaning in ${a.area}, Gurugram`, serviceType: "Water tank cleaning", url, provider: { "@id": SITE + "/#business" }, areaServed: { "@type": "Place", name: `${a.area}, Gurugram`, containedInPlace: { "@type": "City", name: "Gurugram" } } }],
+    related: [
+      { title: m.areasTitle, links: areas.filter((o) => o.slug !== a.slug).map((o) => [`${t.prefix}/${o.slug}`, lang === "hi" ? o.areaHi : o.area]) },
+      { title: m.services, links: serviceLinks(lang) }
+    ]
+  });
+}
+
+function renderGuidesHub(lang) {
+  const t = UI[lang];
+  const m = MORE[lang];
+  const cards = guides.map((g) => {
+    const p = tr(g, lang);
+    return `<a href="${t.prefix}/guides/${g.slug}"><strong>${p.h1}</strong><span>${p.lead}</span><em>${m.read}</em></a>`;
+  }).join("\n          ");
+  return page({
+    lang, path: "guides", title: m.guidesTitle, description: m.guidesDesc, crumbs: [[m.guides, "guides"]],
+    eyebrow: m.guidesEyebrow, h1: m.guidesH1, lead: m.guidesLead,
+    body: `<div class="services guide-list">\n          ${cards}\n        </div>`,
+    ld: [{ "@type": "CollectionPage", name: m.guidesH1, url: `${SITE}${t.prefix}/guides`, inLanguage: t.htmlLang, hasPart: guides.map((g) => ({ "@type": "Article", headline: tr(g, lang).h1, url: `${SITE}${t.prefix}/guides/${g.slug}` })) }],
+    related: [{ title: m.services, links: serviceLinks(lang) }]
+  });
+}
+
+const write = (rel, html) => {
+  mkdirSync(dirname(join(root, rel)), { recursive: true });
+  writeFileSync(join(root, rel), html);
+};
+for (const lang of ["en", "hi"]) {
+  const pre = lang === "hi" ? "hi/" : "";
+  for (const p of pages) write(`${pre}${p.slug}.html`, renderService(p, lang));
+  for (const a of areas) write(`${pre}${a.slug}.html`, renderArea(a, lang));
+  for (const g of guides) write(`${pre}guides/${g.slug}.html`, renderGuide(g, lang));
+  write(`${pre}guides/index.html`, renderGuidesHub(lang));
+}
+console.log(`wrote ${pages.length} service, ${areas.length} area and ${guides.length} guide pages plus the guides hub, in English and Hindi`);
+
+// The homepage keeps its domain in plain HTML; bring it in line with config.js.
+const indexPath = join(root, "index.html");
+let index = readFileSync(indexPath, "utf8");
+const oldSite = (index.match(/<link rel="canonical" href="(https?:\/\/[^/"]+)\/">/) || [])[1];
+if (oldSite && oldSite !== SITE) {
+  index = index.split(oldSite).join(SITE);
+  writeFileSync(indexPath, index);
+  console.log(`updated index.html domain ${oldSite} -> ${SITE}`);
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const paths = ["/"].concat(slugs.map((s) => "/" + s));
-const alt = (path, prefix) => SITE + prefix + path;
+const paths = ["/"].concat(slugs.map((s) => "/" + s), areas.map((a) => "/" + a.slug), ["/guides"], guides.map((g) => "/guides/" + g.slug));
+const alt = (path, prefix) => SITE + prefix + (prefix && path === "/" ? "/" : path);
 writeFileSync(join(root, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${paths.flatMap((u) => ["", "/hi"].map((prefix) => `  <url>
@@ -578,4 +689,8 @@ ${paths.flatMap((u) => ["", "/hi"].map((prefix) => `  <url>
   </url>`)).join("\n")}
 </urlset>
 `);
-console.log("wrote sitemap.xml");
+writeFileSync(join(root, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
+console.log("wrote sitemap.xml and robots.txt");
+
+// The Hindi homepage is built from index.html, so rebuild it last.
+await import("./build-hi.mjs");

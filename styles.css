@@ -540,3 +540,9 @@ thead th { background: rgba(2, 18, 40, .55); }
 body:lang(hi) { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Noto Sans", sans-serif; line-height: 1.7; }
 :lang(hi) .eyebrow, :lang(hi) .step-no { text-transform: none; letter-spacing: 0; font-size: .88rem; }
 :lang(hi) h1, :lang(hi) h2, :lang(hi) h3 { line-height: 1.3; letter-spacing: 0; }
+.areas a { color: inherit; text-decoration: none; }
+.areas a:hover { color: var(--blue); text-decoration: underline; }
+.guide-list { margin-top: 8px; }
+.more-link { margin-top: 14px; } .more-link a { display: inline-block; padding: 10px 0; font-weight: 700; }
+.wordmark { font-family: "Baloo 2", var(--head); font-size: 1.45rem; letter-spacing: 0; line-height: 1; }
+.wordmark span:last-child { font-weight: 700; }

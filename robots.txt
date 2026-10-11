@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tanksaaf.in/sitemap.xml
+Sitemap: https://tiptopwater.com/sitemap.xml
