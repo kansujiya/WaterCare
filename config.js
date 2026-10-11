@@ -3,6 +3,9 @@
 // matching values in index.html: the JSON-LD block, canonical URL and footer).
 window.SITE_CONFIG = {
   brand: "TankSaaf",
+  // The site's address. Change it here when the domain is bought, then run
+  // node scripts/build-pages.mjs to update every page, the sitemap and robots.txt.
+  siteUrl: "https://tanksaaf.in", // PLACEHOLDER
 
   // WhatsApp number in international format, digits only (91 + 10 digit mobile).
   whatsappNumber: "919999999999", // PLACEHOLDER
