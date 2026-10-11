@@ -8,10 +8,10 @@ window.SITE_CONFIG = {
   siteUrl: "https://tiptopwater.com", // PLACEHOLDER
 
   // WhatsApp number in international format, digits only (91 + 10 digit mobile).
-  whatsappNumber: "919999999999", // PLACEHOLDER
-  phoneDisplay: "+91 99999 99999", // PLACEHOLDER
-  phoneLink: "+919999999999", // PLACEHOLDER
-  email: "hello@tiptopwater.com", // PLACEHOLDER
+  whatsappNumber: "917878183069",
+  phoneDisplay: "+91 78781 83069",
+  phoneLink: "+917878183069",
+  email: "sales@tiptopwater.com",
 
   // Tank sizes offered in the booking form, in liters. Prices are not shown on
   // the site; quotes are sent manually on WhatsApp. Sizes above the last value
