@@ -19,7 +19,7 @@ Single page website for a no-entry water tank cleaning service in Gurugram. Cust
 
 ## Before launch
 
-Search the repo for `PLACEHOLDER`, `9999`, `tiptopwater.com` and `Address to be added`, and replace:
+Search the repo for `PLACEHOLDER`, `9999`, and `tiptopwater.com`, and replace:
 
 1. **`config.js`**: `whatsappNumber` (digits only, e.g. `919812345678`), `phoneDisplay`, `phoneLink`, `email`, and the two YouTube video IDs. The demo video section stays hidden until a video ID is set. `offerText` shows a launch offer line; only set one you will honour.
 2. **`index.html`**: add `telephone`, `email` and the full street address to the JSON-LD block in `<head>` (left out until real), check opening hours, the canonical and `og:` URLs, and the footer address and hours.
