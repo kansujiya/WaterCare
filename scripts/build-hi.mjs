@@ -259,8 +259,7 @@ const pairs = [
   ['>Underground tank cleaning</a>', '>अंडरग्राउंड टंकी की सफ़ाई</a>'],
   ['>Societies and RWAs</a>', '>सोसाइटी और RWA</a>'],
   ['>Pricing and quotes</a>', '>कीमत और कोटेशन</a>'],
-  ['Address to be added, Gurugram, Haryana', 'पता जल्द जोड़ा जाएगा, गुरुग्राम, हरियाणा'],
-  ['Open every day, 8 AM to 6 PM', 'रोज़ खुला, सुबह 8 से शाम 6 बजे तक'],
+    ['Open every day, 8 AM to 6 PM', 'रोज़ खुला, सुबह 8 से शाम 6 बजे तक'],
   ['All rights reserved.', 'सर्वाधिकार सुरक्षित।'],
   ['<small>No-entry tank cleaning</small><strong>Free quote</strong>', '<small>बिना अंदर उतरे टंकी सफ़ाई</small><strong>मुफ़्त कोटेशन</strong>'],
   ['>Get quote</a>', '>कोटेशन लें</a>']
